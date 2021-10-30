@@ -1,0 +1,16 @@
+{
+    "name": "russel/wp-quiz",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Russel\\WpQuiz\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Russel Hussain",
+            "email": "md.russel.hussain@gmail.com"
+        }
+    ],
+    "require": {}
+}

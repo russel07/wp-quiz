@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "laravel-mix": "^6.0.37",
+    "vue": "^3.2.20"
+  }
+}

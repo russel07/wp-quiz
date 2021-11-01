@@ -28,9 +28,10 @@ require_once 'vendor/autoload.php';
 
 const WpQUIZ_PLUGIN_NAME = 'WpQUIZ';
 const WpQUIZ_PLUGIN_VERSION = '1.0.1';
-const WpQUIZ_PLUGIN_PREFIX = 'WpQUIZ';
+const WpQUIZ_PLUGIN_PREFIX = 'wpquiz_';
 const WpQUIZ_PLUGIN_PUBLIC_PATH = __FILE__;
 
+const NONCE = 'WpQUIZ3298';
 const WpQUIZ_topics_table = 'wpquiz_topics';
 const WpQUIZ_topic_level_table = 'topics_level';
 

@@ -6,11 +6,13 @@ use Russel\WpQuiz\PluginHooks;
 class PluginInit {
     protected $loader;
     protected $name;
+    protected $prefix;
     protected $version;
     protected $views;
 
     public function __construct() {
-        $this->name = 'WpQUIZ';
+        $this->name = WpQUIZ_PLUGIN_NAME;
+        $this->prefix = WpQUIZ_PLUGIN_PREFIX;
         $this->version = '1.0.0';
         $this->loader = new PluginHooks();
         $this->activateMe();
@@ -61,6 +63,8 @@ class PluginInit {
 
     public function define_admin_hooks(){
         $this->loader->add_action('admin_menu', $this, 'wpquiz_admin_menu');
+        $this->loader->add_action('admin_init', $this, 'wpquiz_enqueue_admin_style');
+        $this->loader->add_action('admin_init', $this, 'wpquiz_enqueue_admin_scripts');
     }
 
     public function wpquiz_admin_menu(){
@@ -73,6 +77,21 @@ class PluginInit {
         );
 
         $this->views[$admin_menu_hook] = 'admin';
+    }
+
+    public function wpquiz_enqueue_admin_style(){
+        wp_enqueue_style($this->prefix.'admin_css', plugin_dir_url(WpQUIZ_PLUGIN_PUBLIC_PATH).'public/css/style.css');
+    }
+
+    public function wpquiz_enqueue_admin_scripts(){
+        wp_register_script($this->prefix.'vue_app', plugin_dir_url(WpQUIZ_PLUGIN_PUBLIC_PATH).'public/js/app.js', array(), $this->version, true );
+
+        wp_enqueue_script( $this->prefix.'vue_app' );
+        wp_localize_script( $this->prefix.'vue_app', 'ajax_object', array(
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'nonce' => wp_create_nonce(NONCE),
+            'plugin_assets' => plugin_dir_url(WpQUIZ_PLUGIN_PUBLIC_PATH).'public/'
+        ));
     }
 
     public function init() {
